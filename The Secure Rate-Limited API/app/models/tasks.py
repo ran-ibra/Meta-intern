@@ -10,8 +10,8 @@ class Task(Base):
     description: Mapped[str | None] = mapped_column(String(500))
     owner_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
 
-    created_at: Mapped[str] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at: Mapped[str] = mapped_column(DateTime(timezone=True), onupdate=func.now())
+    created_at: Mapped[str] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at: Mapped[str] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
 
     owner = relationship("User", back_populates="tasks")
     logs = relationship("Log", back_populates="task", cascade="all, delete-orphan")
